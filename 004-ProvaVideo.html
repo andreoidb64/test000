@@ -1,0 +1,89 @@
+<html>
+<head>
+<style>
+.videos {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.videos video {
+  flex: 1;
+  min-width: 200px;
+  height: 240px;
+  padding: 5px;
+  border: 1px solid;
+}
+</style>
+<!-- 
+<script src="/scripts/snippet-javascript-console.min.js?v=1"></script>
+
+ <style type="text/css">.as-console-wrapper { position: fixed; bottom: 0; left: 0; right: 0; max-height: 150px; overflow-y: scroll; overflow-x: hidden; border-top: 1px solid #000; display: none; }
+.as-console { background: #e9e9e9; border: 1px solid #ccc; display: table; width: 100%; border-collapse: collapse; }
+.as-console-row { display: table-row; font-family: monospace; font-size: 13px; }
+.as-console-row:after { display: table-cell; padding: 3px 6px; color: rgba(0,0,0,.35); border: 1px solid #ccc; content: attr(data-date); vertical-align: top; }
+.as-console-row + .as-console-row > * { border: 1px solid #ccc; }
+.as-console-row-code { width: 100%; white-space: pre-wrap; padding: 3px 5px; display: table-cell; font-family: monospace; font-size: 13px; vertical-align: middle; }
+.as-console-error:before { content: 'Error: '; color: #f00; }
+.as-console-assert:before { content: 'Assertion failed: '; color: #f00; }
+.as-console-info:before { content: 'Info: '; color: #00f; }
+.as-console-warning:before { content: 'Warning: '; color: #e90 }
+@-webkit-keyframes flash { 0% { background: rgba(255,240,0,.25); } 100% { background: none; } }
+@-moz-keyframes flash { 0% { background: rgba(255,240,0,.25); } 100% { background: none; } }
+@-ms-keyframes flash { 0% { background: rgba(255,240,0,.25); } 100% { background: none; } }
+@keyframes flash { 0% { background: rgba(255,240,0,.25); } 100% { background: none; } }
+.as-console-row-code, .as-console-row:after { -webkit-animation: flash 1s; -moz-animation: flash 1s; -ms-animation: flash 1s; animation: flash 1s; }
+</style>
+ -->
+</head>
+<body>
+<div class="videos grid">
+  <video src="20150511_095820.mp4" preload="auto" controls=""></video>
+</div>
+<script type="text/javascript">
+        let videos = document.querySelectorAll('.videos video');
+function play(){
+  this.play();
+}
+
+function stop(){
+  this.pause();
+}
+
+function setPreload() {
+  for (let i = videos.length; i--;) {
+    if (visibleY(videos[i])){
+      videos[i].preload = "auto"; 
+    }
+  }
+}
+
+// code from https://stackoverflow.com/questions/487073/check-if-element-is-visible-after-scrolling#answer-21627295
+var visibleY = function(el){
+  var rect = el.getBoundingClientRect(), top = rect.top, height = rect.height, 
+    el = el.parentNode;
+  do {
+    rect = el.getBoundingClientRect();
+    if (top <= rect.bottom === false) return false;
+    // Check if the element is out of view due to a container scrolling
+    if ((top + height) <= rect.top) return false
+    el = el.parentNode;
+  } while (el != document.body);
+  // Check its within the document viewport
+  return top <= document.documentElement.clientHeight;
+};
+
+
+setPreload()
+for (let i = videos.length; i--;){
+  videos[i].addEventListener('mouseover', play);
+  videos[i].addEventListener('mouseleave', stop);
+}
+window.addEventListener('scroll', setPreload)
+    </script>
+
+<div class="as-console-wrapper">
+<div class="as-console">
+</div>
+</div>
+</body>
+</html>
